@@ -7,20 +7,34 @@ public class HabilidadProyectil : HabilidadBase
     public GameObject prefabProyectil;
     public float daño;
 
-    public override void Usar(GameObject portador, SistemaVida vida, SistemaMana mana, GameObject objetivo = null) {
+    public override void Usar() 
+    {
+        /*
         if (Time.time - ultimoUso < cooldown) return;
 
-        // Lógica para lanzar proyectil
-        GameObject proyectil = Instantiate(prefabProyectil, portador.transform.position + portador.transform.forward, portador.transform.rotation);
+        // Instanciar el proyectil
+         GameObject proyectil = Instantiate(prefabProyectil, portador.transform.position, Quaternion.identity);
         proyectil.GetComponent<Proyectil>().Inicializar(daño);
+
+        // Aplicar daño al objetivo (si es necesario)
+        if (portador != null)
+        {
+            var vida = portador.GetComponent<SistemaVida>();
+            if (vida != null)
+            {
+                vida.RecibirDaño(daño);
+            }
+        } */
+
         ultimoUso = Time.time;
+        
     }
 }
 
-internal class Proyectil
+/* internal class Proyectil
 {
     internal void Inicializar(float daño)
     {
         throw new NotImplementedException();
     }
-}
+} */
