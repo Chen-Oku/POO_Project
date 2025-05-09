@@ -1,33 +1,30 @@
-using System;
 using UnityEngine;
-using UnityEngine.InputSystem.Interactions;
 
 [CreateAssetMenu(fileName = "NuevaHabilidadProyectil", menuName = "Scriptable Objects/Habilidad Proyectil")]
 public class HabilidadProyectil : HabilidadBase
 {
     public GameObject prefabProyectil;
     public int daño;
-
-    [SerializeField] // Ensure Unity serializes this version
-    public new int costoMana { get; set; } = 5;
     
-
     public override void Usar(PortadorJugable portador) 
     {
             if (Time.time - ultimoUso < cooldown) return; // Verifica el cooldown
                 
-        Debug.Log(prefabProyectil);
-        Debug.Log(portador);
+        Debug.Log(prefabProyectil); // Debug para verificar el prefab
+        Debug.Log(portador);// Debug para verificar el portador
 
         // Instanciar el proyectil en la posición del portador
-        GameObject proyectil = Instantiate(prefabProyectil, portador.transform.position + portador.transform.forward, Quaternion.identity);
+        GameObject proyectil = Instantiate(
+            prefabProyectil,
+            portador.puntoDisparo.position,
+            Quaternion.LookRotation(portador.puntoDisparo.forward)
+        );
 
         // Configurar el proyectil (por ejemplo, daño y dirección)
         Proyectil proyectilScript = proyectil.GetComponent<Proyectil>();
-
         if (proyectilScript != null)
         {
-            proyectilScript.Inicializar(daño, portador.transform.forward);
+            proyectilScript.Inicializar(daño, portador.puntoDisparo.forward);
         }
 
         // Consumir mana

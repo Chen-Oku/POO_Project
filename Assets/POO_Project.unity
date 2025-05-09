@@ -1034,6 +1034,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sistemaHabilidades: {fileID: 1195680079}
+  puntoDisparo: {fileID: 0}
 --- !u!114 &790643902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1393,7 +1394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   habilidades:
-  - {fileID: 11400000, guid: 737addf9c8f6e5742b1e134165ead77e, type: 2}
+  - {fileID: 0}
 --- !u!4 &1195680080
 Transform:
   m_ObjectHideFlags: 0

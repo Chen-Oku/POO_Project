@@ -30,6 +30,6 @@ public class Proyectil : MonoBehaviour
             vida.RecibirDaño(daño); // Aplicar daño al objetivo
         }
 
-        Destroy(gameObject); // Destruir el proyectil al impactar
+        //Destroy(gameObject); // Destruir el proyectil al impactar
     }
 }

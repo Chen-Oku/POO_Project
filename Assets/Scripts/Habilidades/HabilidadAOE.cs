@@ -8,7 +8,7 @@ public class HabilidadAOE : HabilidadBase
 
     public float radio = 5f;
     public int daño = 10;
-    public override int costoMana { get; set; } = 30;
+   // public override int costoMana { get; set; } = 30;
     
     public override void Usar(PortadorJugable portador) 
     {
@@ -17,10 +17,10 @@ public class HabilidadAOE : HabilidadBase
         Collider[] enemigos = Physics.OverlapSphere(portador.transform.position, radio);
         foreach (var enemigo in enemigos)
         {
-            var vida = enemigo.GetComponent<SistemaVida>();
-            if (vida != null)
+            //var vida = enemigo.GetComponent<SistemaVida>();
+            if (enemigo.TryGetComponent<SistemaVida>(out SistemaVida vida1))
             {
-                vida.RecibirDaño(daño);
+                vida1.RecibirDaño(daño);
             }
         }
 

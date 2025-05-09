@@ -5,11 +5,30 @@ public class PortadorJugable : PortadorGeneral
 
     public SistemaMana sistemaMana; // Instancia para el maná
     public SistemaHabilidades sistemaHabilidades; // Sistema de habilidades
+    public Transform puntoDisparo;
     
-    //public SistemaHabilidades sistemaHabilidades;
 
-private void Start()
+    private void Start()
     {
+        // Buscar automáticamente el punto de disparo si no está asignado
+        if (puntoDisparo == null)
+        {
+            Transform encontrado = transform.Find("PuntoDisparo"); 
+            if (encontrado != null)
+            {
+                puntoDisparo = encontrado;
+            }
+            else
+            {
+                // Si no existe, créalo automáticamente
+                GameObject nuevoPunto = new GameObject("PuntoDisparo");
+                nuevoPunto.transform.SetParent(transform);
+                nuevoPunto.transform.localPosition = Vector3.zero; // Puedes ajustar la posición
+                puntoDisparo = nuevoPunto.transform;
+                Debug.LogWarning("No se encontró un hijo llamado 'PuntoDisparo'. Se creó uno automáticamente en la posición local (0,0,0).");
+            }
+        }
+
         // Inicializa las estadísticas si no están configuradas
 
         // Crear una instancia de SistemaVida
@@ -26,16 +45,6 @@ private void Start()
 
         Debug.Log($"Vida actual: {sistemaVida.VidaActual}");
 
-       /*  if (sistemaVida == null)
-        {
-            sistemaVida = new SistemaVida
-            {
-                vidaActual = 100,
-                vidaMaxima = 100,
-                vidaMinima = 0
-            };
-        }
- */
         if (sistemaMana == null)
         {
             sistemaMana = new SistemaMana
@@ -51,49 +60,13 @@ private void Start()
         {
             sistemaHabilidades = gameObject.AddComponent<SistemaHabilidades>();
         }
-            sistemaHabilidades.AgregarHabilidad(ScriptableObject.CreateInstance<HabilidadProyectil>());
-            sistemaHabilidades.AgregarHabilidad(ScriptableObject.CreateInstance<HabilidadCuracion>());
-            sistemaHabilidades.AgregarHabilidad(ScriptableObject.CreateInstance<HabilidadAOE>());
+        sistemaHabilidades.AgregarHabilidad(ScriptableObject.CreateInstance<HabilidadProyectil>());
+        sistemaHabilidades.AgregarHabilidad(ScriptableObject.CreateInstance<HabilidadCuracion>());
+        sistemaHabilidades.AgregarHabilidad(ScriptableObject.CreateInstance<HabilidadAOE>());
     }
 
     private void Update()
     {
         
-
-       /*  // Usar habilidades con teclas numéricas
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            ObtenerHabilidad(0); // Usa la primera habilidad (HabilidadProyectil)
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            ObtenerHabilidad(1); // Usa la segunda habilidad (HabilidadCuracion)
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            ObtenerHabilidad(2); // Usa la tercera habilidad (HabilidadAOE)
-        } */
     }
-    /* public HabilidadBase ObtenerHabilidad(int index) 
-    {
-        //sistemaHabilidades.UsarHabilidad(index);
-        if (sistemaHabilidades == null) return null;
-
-    var habilidad = sistemaHabilidades.ObtenerHabilidad(index);
-    if (habilidad != null)
-    {
-        if (sistemaMana.valorActual >= habilidad.costoMana)
-        {
-            habilidad.Usar(this);
-            sistemaMana.ModificarValor(-habilidad.costoMana);
-            Debug.Log($"Usaste la habilidad: {habilidad.nombre}. Maná restante: {sistemaMana.valorActual}");
-        }
-        else
-        {
-            Debug.Log("No tienes suficiente maná para usar esta habilidad.");
-        }
-        return habilidad;
-    }
-    return null;
-    } */
 }

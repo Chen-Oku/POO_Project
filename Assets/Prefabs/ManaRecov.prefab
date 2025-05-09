@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 4316922818874409138}
   - component: {fileID: 4716908930089966385}
   - component: {fileID: 4802909889764694511}
-  - component: {fileID: -9141410753763229352}
+  - component: {fileID: -2193408422312198053}
   m_Layer: 0
-  m_Name: HealingArea
+  m_Name: ManaRecov
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -111,7 +111,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &-9141410753763229352
+--- !u!114 &-2193408422312198053
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,8 +120,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 5668298230749223651}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6349b2c7341e39449047359f8935b94, type: 3}
+  m_Script: {fileID: 11500000, guid: ab6a7cd435a4c5841a1859e6b36b37ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duracion: 5
-  cantidadCuracionPorSegundo: 20
+  cantidadRecuperacion: 10
+  tiempoRecuperacion: 1
