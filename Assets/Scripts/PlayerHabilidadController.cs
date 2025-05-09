@@ -33,16 +33,62 @@ public class PlayerHabilidadController : MonoBehaviour
 
     private void Update()
     {
+        // Habilidad 1
         if (habilidad1Action.WasPressedThisFrame())
+        {
+            Debug.Log("Intentando usar Habilidad 1...");
             UsarHabilidad(0);
-            print("Habilidad 1 usada");
+        }
+
+        // Habilidad 2
         if (habilidad2Action.WasPressedThisFrame())
+        {
+            Debug.Log("Intentando usar Habilidad 2...");
             UsarHabilidad(1);
+        }
+
+        // Habilidad 3
         if (habilidad3Action.WasPressedThisFrame())
+        {
+            Debug.Log("Intentando usar Habilidad 3...");
             UsarHabilidad(2);
+        }
     }
 
     private void UsarHabilidad(int index)
+{
+    if (portadorJugable == null || portadorJugable.sistemaHabilidades == null) return;
+
+    var habilidad = portadorJugable.sistemaHabilidades.ObtenerHabilidad(index);
+    if (habilidad == null)
+    {
+        Debug.LogError($"No se encontró una habilidad en el índice {index}.");
+        return;
+    }
+
+    // Verificar el tipo de habilidad antes de usarla
+    if (habilidad is HabilidadProyectil habilidadProyectil)
+    {
+        Debug.Log("Usando habilidad de tipo proyectil.");
+        habilidadProyectil.Usar(portadorJugable);
+    }
+    else if (habilidad is HabilidadCuracion habilidadCuracion)
+    {
+        Debug.Log("Usando habilidad de tipo curación.");
+        habilidadCuracion.Usar(portadorJugable);
+    }
+    else if (habilidad is HabilidadAOE habilidadAOE)
+    {
+        Debug.Log("Usando habilidad de tipo AOE.");
+        habilidadAOE.Usar(portadorJugable);
+    }
+    else
+    {
+        Debug.LogError("Tipo de habilidad desconocido.");
+    }
+}
+
+    /* private void UsarHabilidad(int index)
     {
         if (portadorJugable == null || portadorJugable.sistemaHabilidades == null) return;
         var habilidad = portadorJugable.sistemaHabilidades.ObtenerHabilidad(index);
@@ -59,5 +105,5 @@ public class PlayerHabilidadController : MonoBehaviour
                 Debug.Log("No tienes suficiente maná para usar esta habilidad.");
             }
         }
-    }
+    } */
 }

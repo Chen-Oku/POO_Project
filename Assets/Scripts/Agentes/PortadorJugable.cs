@@ -11,23 +11,38 @@ public class PortadorJugable : PortadorGeneral
 private void Start()
     {
         // Inicializa las estadísticas si no están configuradas
-        if (sistemaVida == null)
+
+        // Crear una instancia de SistemaVida
+        SistemaVida sistemaVida = new SistemaVida
+        {
+            vidaActual = 100,
+            vidaMaxima = 100,
+            vidaMinima = 0
+        };
+
+         // Modificar valores
+        sistemaVida.RecibirDaño(20);
+        sistemaVida.Curar(10);
+
+        Debug.Log($"Vida actual: {sistemaVida.VidaActual}");
+
+       /*  if (sistemaVida == null)
         {
             sistemaVida = new SistemaVida
             {
-                valorActual = 100,
-                valorMaximo = 100,
-                valorMinimo = 0
+                vidaActual = 100,
+                vidaMaxima = 100,
+                vidaMinima = 0
             };
         }
-
+ */
         if (sistemaMana == null)
         {
             sistemaMana = new SistemaEstadisticas
             {
-                valorActual = 50,
-                valorMaximo = 50,
-                valorMinimo = 0
+                manaActual = 50,
+                manaMaximo = 100,
+                manaMinimo = 0
             };
         }
 

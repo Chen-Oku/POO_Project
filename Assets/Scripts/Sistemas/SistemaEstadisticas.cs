@@ -1,13 +1,23 @@
 using UnityEngine;
 
-public class SistemaEstadisticas
+public class SistemaEstadisticas 
 {
-    public float valorActual;
-    public float valorMaximo;
-    public float valorMinimo;
+    public float vidaActual;
+    public float vidaMaxima;
+    public float vidaMinima;
+
+    public float manaActual;
+    public float manaMaximo;
+    public float manaMinimo;
 
     public virtual void ModificarValor(int amount) 
     {
-        valorActual = Mathf.Clamp(valorActual + amount, valorMinimo, valorMaximo);
+        vidaActual = Mathf.Clamp(vidaActual + amount, vidaMinima, vidaMaxima);
+    }
+
+    public virtual void RecibirDaño(float cantidad)
+    {
+        // Base implementation of damage logic
+        Debug.Log($"Recibiendo {cantidad} de daño en SistemaEstadisticas.");
     }
 }

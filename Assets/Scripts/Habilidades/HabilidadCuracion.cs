@@ -1,16 +1,19 @@
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "HabilidadBase", menuName = "Scriptable Objects/HabilidadBase")]
+[CreateAssetMenu(fileName = "NuevaHabilidadCuracion", menuName = "Scriptable Objects/HabilidadBase")]
 
 public class HabilidadCuracion : HabilidadBase
 {
-    public float condicionRegeneracion;
-    public float cantidadCuracion = 20f;
+    public int condicionRegeneracion;
+    public int cantidadCuracion = 20;
 
         public override void Usar(PortadorJugable portador) 
         {
+            if (portador == null || portador.sistemaVida == null) return;
 
+        portador.sistemaVida.Curar(cantidadCuracion);
+        Debug.Log($"Curaste {cantidadCuracion} puntos de vida.");
         }
 
      /*public override void Usar(SistemaVida vida, SistemaMana mana, GameObject objetivo = null) {

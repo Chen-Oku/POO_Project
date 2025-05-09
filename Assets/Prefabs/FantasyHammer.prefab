@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8598022318464733493}
   - component: {fileID: 5816039341484959231}
   - component: {fileID: 5455623346597643305}
+  - component: {fileID: -5467186136380285329}
   m_Layer: 0
   m_Name: FantasyHammer
   m_TagString: Untagged
@@ -109,3 +110,18 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5193462549946522430, guid: 5600d0e359e32d54c9ecd43a2ad8b7c4, type: 3}
+--- !u!114 &-5467186136380285329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5455623346597643306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 583d97a2c17e172439532d91b6b43f0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocidad: 10
+  "da\xF1o": 10
+  tiempoDeVida: 5
