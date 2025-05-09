@@ -7,7 +7,7 @@ public class HabilidadProyectil : HabilidadBase
     public GameObject prefabProyectil;
     public float daño;
 
-    public override void Usar() 
+    public override void Usar(PortadorJugable portador) 
     {
         /*
         if (Time.time - ultimoUso < cooldown) return;

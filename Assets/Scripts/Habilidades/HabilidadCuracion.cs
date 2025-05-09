@@ -8,7 +8,7 @@ public class HabilidadCuracion : HabilidadBase
     public float condicionRegeneracion;
     public float cantidadCuracion = 20f;
 
-        public override void Usar() 
+        public override void Usar(PortadorJugable portador) 
         {
 
         }
