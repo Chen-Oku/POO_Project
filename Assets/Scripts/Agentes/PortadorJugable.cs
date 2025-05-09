@@ -3,7 +3,7 @@ using UnityEngine;
 public class PortadorJugable : PortadorGeneral 
 {
 
-    public SistemaEstadisticas sistemaMana; // Instancia para el maná
+    public SistemaMana sistemaMana; // Instancia para el maná
     public SistemaHabilidades sistemaHabilidades; // Sistema de habilidades
     
     //public SistemaHabilidades sistemaHabilidades;
@@ -38,7 +38,7 @@ private void Start()
  */
         if (sistemaMana == null)
         {
-            sistemaMana = new SistemaEstadisticas
+            sistemaMana = new SistemaMana
             {
                 manaActual = 50,
                 manaMaximo = 100,
