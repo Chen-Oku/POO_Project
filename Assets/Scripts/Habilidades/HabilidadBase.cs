@@ -1,13 +1,8 @@
 using UnityEngine;
 
-
-
 public enum TipoDeHabilidad {
     Proyectil, Curacion, AOE
 }
-
-
-[CreateAssetMenu(fileName = "HabilidadBase", menuName = "Scriptable Objects/HabilidadBase")]
 
 public abstract class HabilidadBase : ScriptableObject
 {
@@ -20,6 +15,4 @@ public abstract class HabilidadBase : ScriptableObject
     public virtual int costoMana { get; set; }
 
    public abstract void Usar(PortadorJugable portador);
-
-   
 }

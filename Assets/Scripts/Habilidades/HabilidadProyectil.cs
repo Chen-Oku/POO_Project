@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NuevaHabilidadProyectil", menuName = "Scriptable Objects/Habilidad Proyectil")]
 public class HabilidadProyectil : HabilidadBase
 {
-    public GameObject prefabProyectil;
+    [SerializeField] private GameObject prefabProyectil;
     public int daño;
     
     public override void Usar(PortadorJugable portador) 
