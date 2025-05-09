@@ -5,7 +5,11 @@ using UnityEngine;
 public class HabilidadProyectil : HabilidadBase
 {
     public GameObject prefabProyectil;
-    public float daño;
+    public int daño;
+
+    [SerializeField] // Ensure Unity serializes this version
+    public new int costoMana { get; set; } = 5;
+    
 
     public override void Usar(PortadorJugable portador) 
     {
@@ -21,26 +25,14 @@ public class HabilidadProyectil : HabilidadBase
             proyectilScript.Inicializar(daño, portador.transform.forward);
         }
 
-    ultimoUso = Time.time; // Actualizar el tiempo del último uso
-        /*
-        if (Time.time - ultimoUso < cooldown) return;
-
-        // Instanciar el proyectil
-         GameObject proyectil = Instantiate(prefabProyectil, portador.transform.position, Quaternion.identity);
-        proyectil.GetComponent<Proyectil>().Inicializar(daño);
-
-        // Aplicar daño al objetivo (si es necesario)
-        if (portador != null)
+        // Consumir mana
+        SistemaMana mana = portador.GetComponent<SistemaMana>();
+        if (mana != null)
         {
-            var vida = portador.GetComponent<SistemaVida>();
-            if (vida != null)
-            {
-                vida.RecibirDaño(daño);
-            }
-        } */
+            mana.ModificarValor(-costoMana); // Consumir el costo de mana
+        }
+        ultimoUso = Time.time; // Actualizar el tiempo del último uso
 
-        ultimoUso = Time.time;
-        
     }
 }
 

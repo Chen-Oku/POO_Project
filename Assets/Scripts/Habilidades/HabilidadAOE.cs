@@ -8,6 +8,7 @@ public class HabilidadAOE : HabilidadBase
 
     public float radio = 5f;
     public int daño = 10;
+    public override int costoMana { get; set; } = 30;
     
     public override void Usar(PortadorJugable portador) 
     {
@@ -24,14 +25,12 @@ public class HabilidadAOE : HabilidadBase
         }
 
         Debug.Log($"Habilidad AOE usada. Daño: {daño}, Radio: {radio}");
-       /*  Collider[] enemigos = Physics.OverlapSphere(vida.transform.position, radio);
-        foreach (var enemigo in enemigos) {
-            // Aplica daño a los enemigos en el área
-            var vidaEnemigo = enemigo.GetComponent<SistemaVida>();
-            if (vidaEnemigo != null) {
-                vidaEnemigo.RecibirDaño(daño);
-            }
-        } */
+        // Consumir mana
+        SistemaMana mana = portador.GetComponent<SistemaMana>();
+        if (mana != null)
+        {
+            mana.ModificarValor(-costoMana); // Consumir el costo de mana
+        }
     }
 
     public void ConsumirMana(SistemaMana mana) {

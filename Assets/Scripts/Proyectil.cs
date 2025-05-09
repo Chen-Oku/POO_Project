@@ -27,7 +27,7 @@ public class Proyectil : MonoBehaviour
         var vida = other.GetComponent<SistemaVida>();
         if (vida != null)
         {
-            //vida.RecibirDaño(daño); // Aplicar daño al objetivo
+            vida.RecibirDaño(daño); // Aplicar daño al objetivo
         }
 
         Destroy(gameObject); // Destruir el proyectil al impactar
