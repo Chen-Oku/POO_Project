@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class SistemaHabilidades : MonoBehaviour
 {
+    [SerializeField] private int maxHabilidades = 3;
     public List<HabilidadBase> habilidades= new List<HabilidadBase>();
 
     /* public void UsarHabilidad(int index) {
@@ -10,11 +11,16 @@ public class SistemaHabilidades : MonoBehaviour
             habilidades[index].Usar();
         }
     } */
-
     public void AgregarHabilidad(HabilidadBase hab) {
-        habilidades.Add(hab);
+        if (habilidades.Count < maxHabilidades) {
+            if (!habilidades.Contains(hab)) {
+                habilidades.Add(hab);
+                Debug.Log($"Habilidad agregada: {hab.nombre}");
+            }
+        } else {
+            Debug.LogWarning($"Límite de {maxHabilidades} habilidades alcanzado. No se puede agregar más.");
+        }
     }
-
     public void RemoverHabilidad(HabilidadBase hab) {
         habilidades.Remove(hab);
     }

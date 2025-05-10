@@ -5,6 +5,7 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - icono: {fileID: 21300000, guid: 6f98b3e70c3ad8a48a0396785dad48e8, type: 3}
+  - efectoAOE: {fileID: 7302811476000486382, guid: 011ab9bac98b5c840a013072147e4c0d, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

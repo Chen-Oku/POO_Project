@@ -4,7 +4,43 @@ using UnityEngine;
 
 public class HabilidadCuracion : HabilidadBase
 {
-    public GameObject prefabAreaCuracion;
+
+    public int cantidadCuracion = 30;
+    public float cooldownTiempo = 2f;
+    public GameObject efectoCuracion; // Efecto visual para la curación
+    
+    public override void Usar(PortadorJugable portador)
+    {
+        if (Time.time - ultimoUso < cooldown) return;
+        
+        if (portador == null) return;
+        
+        // Aplicar curación
+        if (portador.sistemaVida != null)
+        {
+            portador.sistemaVida.Curar(cantidadCuracion);
+            Debug.Log($"{portador.name} se ha curado {cantidadCuracion} puntos de vida.");
+            
+            // Mostrar efecto visual
+            if (efectoCuracion != null)
+            {
+                GameObject efecto = Instantiate(efectoCuracion, portador.transform.position, Quaternion.identity);
+                efecto.transform.SetParent(portador.transform);
+                Destroy(efecto, 2f); // Destruir el efecto después de 2 segundos
+            }
+            
+            // Consumir mana
+            if (portador.sistemaMana != null)
+            {
+                portador.sistemaMana.ModificarValor(-costoMana);
+            }
+            
+            ultimoUso = Time.time;
+        }
+    }
+}
+
+   /*  public GameObject prefabAreaCuracion;
     public int condicionRegeneracion = 5;
     public int cantidadCuracion = 20;
     public int duracion = 5; // Duración del área de curación
@@ -58,4 +94,4 @@ public class HabilidadCuracion : HabilidadBase
             jugador.sistemaVida.Curar(cantidadCuracionPorSegundo * Time.deltaTime);
         }
     }
-}
+} */

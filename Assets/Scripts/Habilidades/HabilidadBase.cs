@@ -9,10 +9,12 @@ public abstract class HabilidadBase : ScriptableObject
     public string nombre;
     public Sprite icono;
     public float cooldown;
-    protected float ultimoUso;
+    protected float ultimoUso = -999f; // Inicializado a un valor bajo para permitir el uso inmediato
     public TipoDeHabilidad tipoDeHabilidad;
 
     public virtual int costoMana { get; set; }
 
    public abstract void Usar(PortadorJugable portador);
+
+   
 }

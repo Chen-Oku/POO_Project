@@ -37,21 +37,21 @@ public class PlayerHabilidadController : MonoBehaviour
         if (habilidad1Action.WasPressedThisFrame())
         {
             Debug.Log("Intentando usar Habilidad 1...");
-            UsarHabilidad(1);
+            UsarHabilidad(0);
         }
 
         // Habilidad 2
         if (habilidad2Action.WasPressedThisFrame())
         {
             Debug.Log("Intentando usar Habilidad 2...");
-            UsarHabilidad(2);
+            UsarHabilidad(1);
         }
 
         // Habilidad 3
         if (habilidad3Action.WasPressedThisFrame())
         {
             Debug.Log("Intentando usar Habilidad 3...");
-            UsarHabilidad(3);
+            UsarHabilidad(2);
         }
     }
 

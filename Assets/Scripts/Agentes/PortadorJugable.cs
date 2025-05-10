@@ -56,13 +56,13 @@ public class PortadorJugable : PortadorGeneral
         }
 
         // Inicializa el sistema de habilidades
-        if (sistemaHabilidades == null)
-        {
+        if (sistemaHabilidades == null) print("No se encontró un sistema de habilidades. Creando uno automáticamente.");
+/*         {
             sistemaHabilidades = gameObject.AddComponent<SistemaHabilidades>();
         }
         sistemaHabilidades.AgregarHabilidad(ScriptableObject.CreateInstance<HabilidadProyectil>());
         sistemaHabilidades.AgregarHabilidad(ScriptableObject.CreateInstance<HabilidadCuracion>());
-        sistemaHabilidades.AgregarHabilidad(ScriptableObject.CreateInstance<HabilidadAOE>());
+        sistemaHabilidades.AgregarHabilidad(ScriptableObject.CreateInstance<HabilidadAOE>()); */
     }
 
     private void Update()
