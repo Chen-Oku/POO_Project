@@ -3,11 +3,17 @@ using UnityEngine;
 public class PortadorJugable : PortadorGeneral 
 {
 
-    public SistemaMana sistemaMana; // Instancia para el maná
+    public SistemaMana sistemaMana { get; private set; } // Instancia para el maná
+    
     public SistemaHabilidades sistemaHabilidades; // Sistema de habilidades
     public Transform puntoDisparo;
     
-
+    private void Awake()
+    {
+        // Initialize the SistemaMana
+        sistemaMana = new SistemaMana();
+        sistemaMana.InicializarMana();
+    }
     private void Start()
     {
         // Buscar automáticamente el punto de disparo si no está asignado
@@ -45,28 +51,9 @@ public class PortadorJugable : PortadorGeneral
 
         Debug.Log($"Vida actual: {sistemaVida.VidaActual}");
 
-        if (sistemaMana == null)
-        {
-            sistemaMana = new SistemaMana
-            {
-                manaActual = 50,
-                manaMaximo = 100,
-                manaMinimo = 0
-            };
-        }
-
+        
         // Inicializa el sistema de habilidades
         if (sistemaHabilidades == null) print("No se encontró un sistema de habilidades. Creando uno automáticamente.");
-/*         {
-            sistemaHabilidades = gameObject.AddComponent<SistemaHabilidades>();
-        }
-        sistemaHabilidades.AgregarHabilidad(ScriptableObject.CreateInstance<HabilidadProyectil>());
-        sistemaHabilidades.AgregarHabilidad(ScriptableObject.CreateInstance<HabilidadCuracion>());
-        sistemaHabilidades.AgregarHabilidad(ScriptableObject.CreateInstance<HabilidadAOE>()); */
-    }
 
-    private void Update()
-    {
-        
     }
 }

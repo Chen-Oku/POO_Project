@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class SistemaVida : SistemaEstadisticas
 {
-    public float VidaActual => vidaActual;
-    public float VidaMaxima => vidaMaxima;
-    public float VidaMinima => vidaMinima;
+    public int VidaActual => vidaActual;
+    public int VidaMaxima => vidaMaxima;
+    public int VidaMinima => vidaMinima;
 
-    public override void RecibirDaño(float cantidad)
+    public override void RecibirDaño(int cantidad)
     {
         // Custom damage logic for SistemaVida
         vidaActual -= cantidad;
@@ -15,7 +15,7 @@ public class SistemaVida : SistemaEstadisticas
             Debug.Log("El personaje ha muerto.");
         }
     }
-    public void Curar(float cantidad)
+    public void Curar(int cantidad)
     {
         vidaActual += cantidad;
         if (vidaActual > vidaMaxima)

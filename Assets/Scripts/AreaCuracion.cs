@@ -15,7 +15,7 @@ public class AreaCuracion : MonoBehaviour
         PortadorJugable jugador = other.GetComponent<PortadorJugable>();
         if (jugador != null && jugador.sistemaVida != null)
         {
-            jugador.sistemaVida.Curar(cantidadCuracionPorSegundo * Time.deltaTime);
+            jugador.sistemaVida.Curar((int)(cantidadCuracionPorSegundo * Time.deltaTime));
         }
     }
 }
