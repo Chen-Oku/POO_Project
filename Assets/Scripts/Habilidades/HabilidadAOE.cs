@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NuevaHabilidadAOE", menuName = "Scriptable Objects/HabilidadBase")]
+[CreateAssetMenu(fileName = "NuevaHabilidadAOE", menuName = "Scriptable Objects/Habilidad AOE")]
 
 public class HabilidadAOE : HabilidadBase
 {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NuevaHabilidadCuracion", menuName = "Scriptable Objects/HabilidadBase")]
+[CreateAssetMenu(fileName = "NuevaHabilidadCuracion", menuName = "Scriptable Objects/Habilidad Curacion")]
 
 public class HabilidadCuracion : HabilidadBase
 {
