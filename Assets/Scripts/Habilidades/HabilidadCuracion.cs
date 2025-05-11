@@ -1,17 +1,18 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NuevaHabilidadCuracion", menuName = "Scriptable Objects/Habilidad Curacion")]
-
 public class HabilidadCuracion : HabilidadBase
 {
-
     public int cantidadCuracion = 30;
     public float cooldownTiempo = 2f;
-    public GameObject efectoCuracion; // Efecto visual para la curación
+    public GameObject prefabAreaCuracion; // Prefab del área de curación con efectos incluidos
+    public float duracionArea = 5f; // Duración del área de curación
+    public float radioCuracion = 3f; // Radio del área de curación
     
     public override void Usar(PortadorJugable portador)
     {
         base.costoMana = 20;
+        cooldown = cooldownTiempo;
 
         if (Time.time - ultimoUso < cooldown) 
         {
@@ -28,29 +29,44 @@ public class HabilidadCuracion : HabilidadBase
             return;
         }
         
-        // Aplicar curación
-        if (portador.sistemaVida != null)
+        // Consumir mana primero
+        if (portador.sistemaMana != null)
         {
-            // Consumir mana primero
-            if (portador.sistemaMana != null)
-            {
-                portador.sistemaMana.ConsumirMana(costoMana);
-                Debug.Log($"Has consumido {costoMana} puntos de maná. Maná restante: {portador.sistemaMana.ManaActual}");
-            }
-            
-            // Aplicar la curación
-            portador.sistemaVida.Curar(cantidadCuracion);
-            Debug.Log($"{portador.name} se ha curado {cantidadCuracion} puntos de vida.");
-            
-            // Mostrar efecto visual
-            if (efectoCuracion != null)
-            {
-                GameObject efecto = Instantiate(efectoCuracion, portador.transform.position, Quaternion.identity);
-                efecto.transform.SetParent(portador.transform);
-                Destroy(efecto, 2f); // Destruir el efecto después de 2 segundos
-            }
-            
-            ultimoUso = Time.time;
+            portador.sistemaMana.ConsumirMana(costoMana);
+            Debug.Log($"Has consumido {costoMana} puntos de maná. Maná restante: {portador.sistemaMana.ManaActual}");
         }
+            
+        // Crear el área de curación
+        if (prefabAreaCuracion != null)
+        {
+            // Crear el área un poco por delante del jugador
+            Vector3 posicion = portador.transform.position + portador.transform.forward * 2f;
+            posicion.y = 0.1f; // Ajustar ligeramente por encima del suelo
+            
+            GameObject areaInstanciada = Instantiate(prefabAreaCuracion, posicion, Quaternion.identity);
+            
+            // Configurar el área de curación
+            AreaCuracion areaCuracion = areaInstanciada.GetComponent<AreaCuracion>();
+            if (areaCuracion == null)
+            {
+                areaCuracion = areaInstanciada.AddComponent<AreaCuracion>();
+            }
+            
+            // Configurar parámetros del área de curación
+            areaCuracion.Inicializar(portador, cantidadCuracion, duracionArea, radioCuracion);
+            
+            Debug.Log($"Has creado un área de curación que durará {duracionArea} segundos.");
+        }
+        else
+        {
+            // Si no hay prefab de área, curar directamente (comportamiento original)
+            if (portador.sistemaVida != null)
+            {
+                portador.sistemaVida.Curar(cantidadCuracion);
+                Debug.Log($"{portador.name} se ha curado {cantidadCuracion} puntos de vida.");
+            }
+        }
+            
+        ultimoUso = Time.time;
     }
 }

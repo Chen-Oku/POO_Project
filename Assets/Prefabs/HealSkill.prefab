@@ -9678,7 +9678,7 @@ GameObject:
   - component: {fileID: 4316922818874409138}
   - component: {fileID: 4716908930089966385}
   - component: {fileID: 4802909889764694511}
-  - component: {fileID: -2193408422312198053}
+  - component: {fileID: -8282934287788073513}
   m_Layer: 0
   m_Name: HealSkill
   m_TagString: Untagged
@@ -9779,7 +9779,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &-2193408422312198053
+--- !u!114 &-8282934287788073513
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9788,8 +9788,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 5668298230749223651}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab6a7cd435a4c5841a1859e6b36b37ab, type: 3}
+  m_Script: {fileID: 11500000, guid: 1653c5fc65dd65846b8a7d91020a1da2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cantidadRecuperacion: 10
-  tiempoRecuperacion: 1
