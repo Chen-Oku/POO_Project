@@ -3,22 +3,23 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NuevaHabilidadCuracion", menuName = "Scriptable Objects/Habilidad Curacion")]
 public class HabilidadCuracion : HabilidadBase
 {
+    //[SerializeField] private float tiempoCooldown = 2f; // Solo para configuración inicial
     public int cantidadCuracion = 30;
-    public float cooldownTiempo = 2f;
     public GameObject prefabAreaCuracion; // Prefab del área de curación con efectos incluidos
     public float duracionArea = 5f; // Duración del área de curación
     public float radioCuracion = 3f; // Radio del área de curación
     
+ 
     public override void Usar(PortadorJugable portador)
     {
         base.costoMana = 20;
-        cooldown = cooldownTiempo;
+        cooldown = 5f; // Accedes directamente a la variable de la clase base
 
-        if (Time.time - ultimoUso < cooldown) 
-        {
-            Debug.Log("Habilidad en cooldown, espera un momento.");
-            return;
-        }
+    if (Time.time - ultimoUso < cooldown) 
+    {
+        Debug.Log("Habilidad en cooldown, espera un momento.");
+        return;
+    }
         
         if (portador == null) return;
         

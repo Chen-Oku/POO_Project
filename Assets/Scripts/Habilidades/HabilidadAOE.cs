@@ -5,13 +5,15 @@ public class HabilidadAOE : HabilidadBase
 {
     public float radio = 5f;
     public int daño = 15;
-    public float cooldownTiempo = 2f;
     [SerializeField] private int costoDeMana = 30; // Nuevo campo serializado
     public GameObject efectoAOE; // Efecto visual del AOE
     public LayerMask capasObjetivos; // Para filtrar qué objetos son afectados
     
     public override void Usar(PortadorJugable portador)
     {
+        base.costoMana = 20;
+        cooldown = 3f; // Accedes directamente a la variable de la clase base
+
         // Asegúrate de que estás modificando la instancia correcta
         Debug.Log($"ID de la habilidad: {this.GetHashCode()}");
         base.costoMana = costoDeMana; // Asignar el costo de mana

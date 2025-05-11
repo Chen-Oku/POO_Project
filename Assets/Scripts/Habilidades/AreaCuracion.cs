@@ -96,11 +96,4 @@ public class AreaCuracion : MonoBehaviour
             }
         }
     }
-    
-    // Para visualización en el editor
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, radio);
-    }
 }

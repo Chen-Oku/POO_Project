@@ -1,19 +1,44 @@
 using UnityEngine;
 
-public class PortadorJugable : PortadorGeneral 
+public class PortadorJugable : PortadorGeneral
 {
-
+    [SerializeField] private VidaUI vidaUI; // UI de vida
     public SistemaMana sistemaMana { get; private set; } // Instancia para el maná
     
     public SistemaHabilidades sistemaHabilidades; // Sistema de habilidades
     public Transform puntoDisparo;
     
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake(); // Llamar al Awake del padre para inicializar sistemaVida
+
         // Initialize the SistemaMana
         sistemaMana = new SistemaMana();
         sistemaMana.InicializarMana();
+        ActualizarUI();
     }
+    //==================//
+    private void Update()
+    {
+        // Agregar esto para manejar la regeneración automática
+        sistemaMana?.ActualizarRegeneracion(Time.deltaTime);
+    }
+
+    protected override void OnDamageReceived(int amount)
+    {
+        base.OnDamageReceived(amount);
+        ActualizarUI();
+        Debug.Log($"Jugador recibió {amount} de daño. Vida actual: {sistemaVida.VidaActual}");
+    }
+    
+    protected override void OnHealReceived(int amount)
+    {
+       base.OnHealReceived(amount);
+        ActualizarUI();
+        Debug.Log($"Jugador recibió {amount} de curación. Vida actual: {sistemaVida.VidaActual}");
+    }
+    //==================//
+
     private void Start()
     {
         // Buscar automáticamente el punto de disparo si no está asignado
@@ -59,9 +84,11 @@ public class PortadorJugable : PortadorGeneral
             Debug.Log("Se ha creado automáticamente un sistema de habilidades");
         }
     }
-    private void Update()
+    private void ActualizarUI()
     {
-        // Agregar esto para manejar la regeneración automática
-        sistemaMana?.ActualizarRegeneracion(Time.deltaTime);
+        if (vidaUI != null)
+        {
+            vidaUI.ActualizarUIVida(sistemaVida.VidaActual, sistemaVida.VidaMaxima);
+        }
     }
 }

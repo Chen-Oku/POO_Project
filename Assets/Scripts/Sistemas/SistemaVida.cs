@@ -6,23 +6,62 @@ public class SistemaVida : SistemaEstadisticas
     public int VidaMaxima => vidaMaxima;
     public int VidaMinima => vidaMinima;
 
+ // Evento para notificar cambios en la vida
+    public event System.Action OnVidaCambiada;
+    
+    // Constructor opcional
+    public SistemaVida(int vidaMaxima = 100, int vidaActual = 100)
+    {
+        base.vidaMaxima = vidaMaxima;
+        base.vidaActual = vidaActual;
+        base.vidaMinima = 0;
+    }
+    
+    // Inicialización si no usas el constructor
+    public void InicializarVida(int vidaMaxima = 100, int vidaActual = 100)
+    {
+        base.vidaMaxima = vidaMaxima;
+        base.vidaActual = vidaActual;
+        base.vidaMinima = 0;
+        NotificarCambios();
+    }
+    
+    // Método para recibir daño
     public override void RecibirDaño(int cantidad)
     {
-        // Custom damage logic for SistemaVida
-        vidaActual -= cantidad;
-        if (vidaActual <= 0)
+        if (cantidad <= 0) return;
+        
+        base.vidaActual = Mathf.Max(base.vidaActual - cantidad, base.vidaMinima);
+        NotificarCambios();
+        
+        // Verificar si ha muerto
+        if (base.vidaActual <= base.vidaMinima)
         {
-            Debug.Log("El personaje ha muerto.");
+            // Trigger dead event or state
+            Debug.Log("¡La entidad ha muerto!");
         }
     }
+    
+    // Método para curar
     public void Curar(int cantidad)
     {
-        vidaActual += cantidad;
-        if (vidaActual > vidaMaxima)
-        {
-            vidaActual = vidaMaxima; // Prevent overhealing
-        }
-        Debug.Log($"Curado por {cantidad}. Vida actual: {vidaActual}");
+        if (cantidad <= 0) return;
+        
+        base.vidaActual = Mathf.Min(base.vidaActual + cantidad, base.vidaMaxima);
+        NotificarCambios();
     }
-
+    
+    // Para compatibilidad con código existente
+    public override void ModificarValor(int cantidad)
+    {
+        if (cantidad > 0)
+            Curar(cantidad);
+        else if (cantidad < 0)
+            RecibirDaño(-cantidad); // Convertir a positivo
+    }
+    
+    private void NotificarCambios()
+    {
+        OnVidaCambiada?.Invoke();
+    }
 }
