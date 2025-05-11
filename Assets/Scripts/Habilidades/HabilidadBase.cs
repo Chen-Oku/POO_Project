@@ -16,5 +16,29 @@ public abstract class HabilidadBase : ScriptableObject
 
    public abstract void Usar(PortadorJugable portador);
 
+
+//ultimos cambios
+   public bool EstaDisponible()
+    {
+        return Time.time >= ultimoUso + cooldown;
+    }
+    
+    public float TiempoRestante()
+    {
+        float tiempoRestante = (ultimoUso + cooldown) - Time.time;
+        return Mathf.Max(0, tiempoRestante); // Nunca devolver tiempo negativo
+    }
+    
+    protected void RegistrarUso()
+    {
+        ultimoUso = Time.time;
+    }
+    
+    // Método para reiniciar el tiempo (útil al reiniciar el juego)
+    public void Reiniciar()
+    {
+        ultimoUso = -999f; // O cualquier valor que permita uso inmediato
+    }
+
    
 }

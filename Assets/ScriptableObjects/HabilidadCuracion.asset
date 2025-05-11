@@ -18,4 +18,4 @@ MonoBehaviour:
   tipoDeHabilidad: 1
   cantidadCuracion: 30
   cooldownTiempo: 1
-  efectoCuracion: {fileID: 5668298230749223651, guid: 161caf0b17462cb4a9d367dafa5a6170, type: 3}
+  efectoCuracion: {fileID: 5668298230749223651, guid: 233b453051712fc4cb7dad61daaf57d1, type: 3}

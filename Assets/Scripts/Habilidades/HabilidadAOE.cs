@@ -54,7 +54,7 @@ public class HabilidadAOE : HabilidadBase
         if (efectoAOE != null)
         {
             GameObject efecto = Instantiate(efectoAOE, portador.transform.position, Quaternion.identity);
-            efecto.transform.localScale = new Vector3(radio * 2, radio * 2, radio * 2);
+            //efecto.transform.localScale = new Vector3(radio * 2, radio * 2, radio * 2);
             Destroy(efecto, 2f);
         }
         

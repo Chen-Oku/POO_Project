@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4802909889764694511}
   - component: {fileID: 3124216862973741380}
   m_Layer: 0
-  m_Name: HealingArea
+  m_Name: ManaRec
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

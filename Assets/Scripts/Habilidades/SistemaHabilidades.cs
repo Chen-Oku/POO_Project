@@ -11,6 +11,29 @@ public class SistemaHabilidades : MonoBehaviour
             habilidades[index].Usar();
         }
     } */
+
+    //======================//
+    //reiniciar habilidades//
+    //=====================//
+    private void Start()
+    {
+        // Inicializar habilidades
+        ReiniciarHabilidades();
+    }
+    
+    public void ReiniciarHabilidades()
+    {
+        // Reiniciar todas las habilidades
+        foreach (var habilidad in habilidades)
+        {
+            habilidad.Reiniciar();
+        }
+    }
+
+    //======================//
+    // agregar habilidades //
+    //=====================//
+
     public void AgregarHabilidad(HabilidadBase hab) {
         if (habilidades.Count < maxHabilidades) {
             if (!habilidades.Contains(hab)) {

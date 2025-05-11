@@ -45,7 +45,7 @@ public class PlayerWalk : MonoBehaviour
         m_jumpAction = inputActions.FindAction("Player/Jump");
 
         m_ridigbody = GetComponent<Rigidbody>();
-        m_ridigbody.freezeRotation = false;
+        //m_ridigbody.freezeRotation = false;
         m_ridigbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         //m_animator = GetComponent<Animator>();
     }
@@ -97,7 +97,10 @@ public class PlayerWalk : MonoBehaviour
     private bool IsGrounded()
     {
         // Raycast simple hacia abajo para comprobar si está en el suelo
-        return Physics.Raycast(transform.position, Vector3.down, GroundCheckDistance);
+        //return Physics.Raycast(transform.position, Vector3.down, GroundCheckDistance);
+
+        Vector3 origin = transform.position + Vector3.up * 0.1f;
+        return Physics.Raycast(origin, Vector3.down, GroundCheckDistance + 0.1f);
     }
 
     private void Walking()

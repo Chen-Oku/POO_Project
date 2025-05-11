@@ -57,6 +57,18 @@ public class Proyectil : MonoBehaviour
         if (rb == null)
             rb = gameObject.AddComponent<Rigidbody>();
 
+        // Ignorar colisiones físicas con el lanzador específicamente
+        if (lanzador != null)
+        {
+            Collider proyectilCollider = GetComponent<Collider>();
+            Collider lanzadorCollider = lanzador.GetComponent<Collider>();
+            
+            if (proyectilCollider != null && lanzadorCollider != null)
+            {
+                Physics.IgnoreCollision(proyectilCollider, lanzadorCollider, true);
+            }
+        }
+
    
         // Rotar el modelo para que quede horizontal
         transform.Rotate(90f, 0f, 0f);
@@ -74,10 +86,8 @@ public class Proyectil : MonoBehaviour
 
      private void OnCollisionEnter(Collision collision)
     {
-        /* // No dañar al lanzador
-        PortadorJugable jugadorGolpeado = collision.gameObject.GetComponent<PortadorJugable>();
-        if (jugadorGolpeado == lanzador) return;
-        
+            
+        /* 
         // Buscar si golpeó un portador (enemigo o dummy)
         PortadorGeneral portadorGolpeado = collision.gameObject.GetComponent<PortadorGeneral>();
         if (portadorGolpeado != null && portadorGolpeado.sistemaVida != null)
