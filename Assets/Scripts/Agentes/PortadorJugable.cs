@@ -56,4 +56,9 @@ public class PortadorJugable : PortadorGeneral
         if (sistemaHabilidades == null) print("No se encontró un sistema de habilidades. Creando uno automáticamente.");
 
     }
+    private void Update()
+    {
+        // Agregar esto para manejar la regeneración automática
+        sistemaMana?.ActualizarRegeneracion(Time.deltaTime);
+    }
 }

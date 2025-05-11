@@ -58,17 +58,15 @@ public class ManaUI : MonoBehaviour
         {
             if (barraMana != null)
             {
-                // Convertir a float para evitar división entera
+                // Usar ManaActual y ManaMaximo (propiedades que ya existen en tu clase)
                 float porcentaje = (float)_sistemaMana.ManaActual / _sistemaMana.ManaMaximo;
                 barraMana.fillAmount = porcentaje;
-                Debug.Log($"Actualizando barra de mana: {porcentaje:P2}");
             }
             
             if (textoMana != null)
             {
-                // Esto ya muestra el formato que deseas (50/100)
+                // Usar las mismas propiedades
                 textoMana.text = $"{_sistemaMana.ManaActual}/{_sistemaMana.ManaMaximo}";
-                Debug.Log($"Actualizando texto de mana: {_sistemaMana.ManaActual}/{_sistemaMana.ManaMaximo}");
             }
         }
     }

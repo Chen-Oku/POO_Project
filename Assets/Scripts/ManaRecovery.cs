@@ -16,10 +16,11 @@ public class ManaRecovery : MonoBehaviour
             // Recuperar maná si ha pasado suficiente tiempo
             if (Time.time >= tiempoUltimaRecuperacion + tiempoRecuperacion)
             {
-                jugador.sistemaMana.ModificarValor(cantidadRecuperacion);
+                // Usar RecuperarMana en lugar de ModificarValor
+                jugador.sistemaMana.RecuperarMana(cantidadRecuperacion);
                 tiempoUltimaRecuperacion = Time.time;
 
-                Debug.Log($"Maná recuperado: {cantidadRecuperacion}. Maná actual: {jugador.sistemaMana.manaActual}");
+                Debug.Log($"Maná recuperado: {cantidadRecuperacion}. Maná actual: {jugador.sistemaMana.ManaActual}");
             }
         }
     }

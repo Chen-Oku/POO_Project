@@ -7,9 +7,11 @@ public class SistemaMana : SistemaEstadisticas
     public int ManaMinimo => base.manaMinimo;  // Use parent's field
     private int regeneracionMana = 1;
     private float tiempoUltimaRegeneracion;
-    private float intervaloRegeneracion = 1f; // regenerar cada 1 segundo
+    private float intervaloRegeneracion = 5f; // regenerar cada 1 segundo
+    public delegate void EstadisticasCambiadas();
+    public event EstadisticasCambiadas OnEstadisticasCambiadas;
     
-    private void Start()
+/*     private void Start()
     {
         InicializarMana();
         tiempoUltimaRegeneracion = Time.time;
@@ -23,18 +25,19 @@ public class SistemaMana : SistemaEstadisticas
             RecuperarMana(regeneracionMana);
             tiempoUltimaRegeneracion = Time.time;
         }
-    }
+    } */
     
     public void InicializarMana(int max = 100, int actual = 100, int min = 0)
     {
         manaMaximo = max;
         manaActual = actual;
         manaMinimo = min;
+        OnEstadisticasCambiadas?.Invoke(); // Notificar cambios iniciales
     }
     
     public void RecuperarMana(int cantidad)
     {
-        if (manaActual < manaMaximo)
+        if (manaActual < manaMaximo) // 
         {
             manaActual = Mathf.Min(manaActual + cantidad, manaMaximo);
             // Notificar cambio para actualizar la UI
@@ -61,8 +64,16 @@ public class SistemaMana : SistemaEstadisticas
         return resultado;
         //return manaActual >= cantidad;
     }
+
+    public void ActualizarRegeneracion(float deltaTime)
+    {
+        tiempoUltimaRegeneracion += deltaTime;
+        if (tiempoUltimaRegeneracion >= intervaloRegeneracion)
+        {
+            tiempoUltimaRegeneracion = 0;
+            RecuperarMana(regeneracionMana);
+        }
+    }
     
-    // Este evento debe estar definido en SistemaEstadisticas o implementarlo aquí
-    public delegate void EstadisticasCambiadas();
-    public event EstadisticasCambiadas OnEstadisticasCambiadas;
+    
 }
