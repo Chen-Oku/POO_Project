@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 3536d8831a0d98a45921214ba50a6db4
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - icono: {fileID: 21300000, guid: 2e350bcef09f70943ba03de78d8c063a, type: 3}
+  - prefabAreaCuracion: {fileID: 5668298230749223651, guid: 233b453051712fc4cb7dad61daaf57d1, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

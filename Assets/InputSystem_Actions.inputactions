@@ -85,6 +85,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Habilidad1",
+                    "type": "Button",
+                    "id": "74a76295-eb38-45bc-8fbf-10bf37f9c59f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Habilidad2",
+                    "type": "Button",
+                    "id": "2e809817-dbd6-4891-a5a6-87d1e55821af",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Habilidad3",
+                    "type": "Button",
+                    "id": "34d50319-0e26-436f-bc2a-3ec7995d14f6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -470,6 +497,39 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Crouch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "302f568d-6283-4e2d-a4b3-34de9b94533c",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse;XR",
+                    "action": "Habilidad1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3c240c57-7f80-4d36-a370-f374de3d88a3",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse;XR",
+                    "action": "Habilidad2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "525044d2-1b87-4180-8049-304573180628",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse;XR",
+                    "action": "Habilidad3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
