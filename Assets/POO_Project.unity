@@ -951,6 +951,7 @@ MonoBehaviour:
   vidaInicial: 100
   vidaUI: {fileID: 484901984}
   sistemaHabilidades: {fileID: 790643903}
+  tipoPortador: 1
   puntoDisparo: {fileID: 257737544}
   puntoSpawn: {fileID: 1875852524}
   tiempoRespawn: 2

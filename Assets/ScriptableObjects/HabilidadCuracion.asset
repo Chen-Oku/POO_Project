@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nombre: HealingLight
   icono: {fileID: 21300000, guid: 2e350bcef09f70943ba03de78d8c063a, type: 3}
-  cooldown: 5
+  cooldown: 2
   tipoDeHabilidad: 1
-  cantidadCuracion: 30
+  cantidadCuracion: 50
   prefabAreaCuracion: {fileID: 5668298230749223651, guid: 233b453051712fc4cb7dad61daaf57d1, type: 3}
   duracionArea: 2
   radioCuracion: 3
