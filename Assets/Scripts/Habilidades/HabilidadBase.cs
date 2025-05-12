@@ -13,6 +13,7 @@ public abstract class HabilidadBase : ScriptableObject
     public TipoDeHabilidad tipoDeHabilidad;
 
     public virtual int costoMana { get; set; }
+    public virtual int costoVida { get; set; }
 
    public abstract void Usar(PortadorJugable portador);
 

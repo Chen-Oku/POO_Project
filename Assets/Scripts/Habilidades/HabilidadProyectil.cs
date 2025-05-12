@@ -43,11 +43,20 @@ public class HabilidadProyectil : HabilidadBase
             rb.linearVelocity = portador.puntoDisparo.forward * velocidadProyectil;
         }
 
-        // Consumir mana
-        if (portador.sistemaMana != null)
+       // Consumir recurso según el tipo de portador
+        if (portador == null) return;
+
+        bool recursoConsumido = false;
+
+        if (portador.tipoPortador == PortadorJugable.TipoPortador.Mana && portador.sistemaMana != null)
         {
-            portador.sistemaMana.ModificarValor(-costoMana); 
+            recursoConsumido = portador.sistemaMana.ConsumirMana(portador.sistemaMana.CostoHabilidadProyectil);
         }
+        else if (portador.tipoPortador == PortadorJugable.TipoPortador.Vida && portador.sistemaVida != null)
+        {
+            recursoConsumido = portador.sistemaVida.ConsumirVida(portador.sistemaVida.CostoHabilidadProyectil);
+        }
+
         
         ultimoUso = Time.time;
         Debug.Log($"¡{portador.name} lanzó Mjolnir!");

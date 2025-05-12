@@ -13,8 +13,7 @@ public class HabilidadCuracion : HabilidadBase
     public override void Usar(PortadorJugable portador)
     {
         base.costoMana = 20;
-        cooldown = 5f; // Accedes directamente a la variable de la clase base
-
+       
     if (Time.time - ultimoUso < cooldown) 
     {
         Debug.Log("Habilidad en cooldown, espera un momento.");
@@ -22,19 +21,41 @@ public class HabilidadCuracion : HabilidadBase
     }
         
         if (portador == null) return;
+
+    bool recursoConsumido = false;
+
+    if (portador.tipoPortador == PortadorJugable.TipoPortador.Mana && portador.sistemaMana != null)
+    {
+        recursoConsumido = portador.sistemaMana.ConsumirMana(portador.sistemaMana.CostoHabilidadCuracion);
+    }
+    else if (portador.tipoPortador == PortadorJugable.TipoPortador.Vida && portador.sistemaVida != null)
+    {
+        recursoConsumido = portador.sistemaVida.ConsumirVida(portador.sistemaVida.CostoHabilidadCuracion);
+    }
+
+    if (!recursoConsumido)
+    {
+        Debug.Log("No tienes suficiente recurso para usar la habilidad.");
+        return;
+    }
         
-        // Verificar si hay suficiente mana antes de usar la habilidad
-        if (portador.sistemaMana != null && !portador.sistemaMana.TieneSuficienteMana(costoMana))
-        {
-            Debug.Log($"Mana insuficiente. Necesitas {costoMana} mana para usar esta habilidad.");
-            return;
-        }
-        
-        // Consumir mana primero
+        /* // Consumir mana primero
         if (portador.sistemaMana != null)
         {
             portador.sistemaMana.ConsumirMana(costoMana);
             Debug.Log($"Has consumido {costoMana} puntos de maná. Maná restante: {portador.sistemaMana.ManaActual}");
+        } */
+
+        // Consumir recurso según el tipo de portador
+        if (portador.tipoPortador == PortadorJugable.TipoPortador.Mana)
+        {
+            if (portador.sistemaMana != null)
+                portador.sistemaMana.ModificarValor(-costoMana);
+        }
+        else // TipoPortador.Vida
+        {
+            if (portador.sistemaVida != null)
+                portador.sistemaVida.ModificarValor(-costoVida);
         }
             
         // Crear el área de curación

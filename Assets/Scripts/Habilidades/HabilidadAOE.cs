@@ -16,7 +16,6 @@ public class HabilidadAOE : HabilidadBase
     {
         // Configurar valores base
         base.costoMana = costoDeMana;
-        cooldown = 3f;
         
         // Verificar cooldown
         if (Time.time - ultimoUso < cooldown)
@@ -33,8 +32,22 @@ public class HabilidadAOE : HabilidadBase
             Debug.Log($"Mana insuficiente. Necesitas {costoMana} mana para usar esta habilidad.");
             return;
         }
+
+        // Consumir recurso según el tipo de portador
+        if (portador == null) return;
+
+        bool recursoConsumido = false;
+
+        if (portador.tipoPortador == PortadorJugable.TipoPortador.Mana && portador.sistemaMana != null)
+        {
+            recursoConsumido = portador.sistemaMana.ConsumirMana(portador.sistemaMana.CostoHabilidadAOE);
+        }
+        else if (portador.tipoPortador == PortadorJugable.TipoPortador.Vida && portador.sistemaVida != null)
+        {
+            recursoConsumido = portador.sistemaVida.ConsumirVida(portador.sistemaVida.CostoHabilidadAOE);
+        }
         
-        // Consumir mana primero
+        /* // Consumir mana primero
         if (portador.sistemaMana != null)
         {
             portador.sistemaMana.ConsumirMana(costoMana);
@@ -46,7 +59,7 @@ public class HabilidadAOE : HabilidadBase
             {
                 manaUI.ActualizarUIMana();
             }
-        }
+        } */
         
         // Determinar posición para el efecto (ligeramente adelante del jugador)
         Vector3 posicion = portador.transform.position + portador.transform.forward * 2f;

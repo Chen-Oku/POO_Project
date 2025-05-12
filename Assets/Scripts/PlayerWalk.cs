@@ -27,6 +27,8 @@ public class PlayerWalk : MonoBehaviour
 
     private int jumpCount = 0;
     private int maxJumps = 1; // 1 salto normal + 1 doble salto
+    private PortadorJugable portadorJugable; // Referencia al portador jugable
+
 
     private void OnEnable()
     {
@@ -45,7 +47,8 @@ public class PlayerWalk : MonoBehaviour
         m_jumpAction = inputActions.FindAction("Player/Jump");
 
         m_ridigbody = GetComponent<Rigidbody>();
-        //m_ridigbody.freezeRotation = false;
+        portadorJugable = GetComponent<PortadorJugable>();
+        m_ridigbody.freezeRotation = false;
         m_ridigbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         //m_animator = GetComponent<Animator>();
     }
@@ -68,6 +71,10 @@ public class PlayerWalk : MonoBehaviour
                 jumpCount++;
             }
         }
+        if (Keyboard.current.tKey.wasPressedThisFrame && portadorJugable != null)
+    {
+        portadorJugable.CambiarTipoPortador();
+    }
     }
 
     public void Jump()

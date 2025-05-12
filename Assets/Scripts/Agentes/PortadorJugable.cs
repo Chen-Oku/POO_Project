@@ -6,13 +6,20 @@ public class PortadorJugable : PortadorGeneral
     [Header("Configuración de Jugador")]
     [SerializeField] private VidaUI vidaUI; // UI de vida
     public SistemaMana sistemaMana { get; private set; } // Instancia para el maná
-        public SistemaHabilidades sistemaHabilidades; // Sistema de habilidades
+    public SistemaHabilidades sistemaHabilidades; // Sistema de habilidades
+    public TipoPortador tipoPortador = TipoPortador.Mana; // O Vida, según el caso
     public Transform puntoDisparo;
 
    [Header("Configuración de Spawn")]
     [SerializeField] private Transform puntoSpawn; // El punto donde aparecerá/reaparecerá
     [SerializeField] private float tiempoRespawn = 2f; // Tiempo antes de respawnear
-    
+
+    public enum TipoPortador
+    {
+        Mana,
+        Vida
+    }
+
     protected override void Awake()
     {
         base.Awake(); // Llamar al Awake del padre para inicializar sistemaVida
@@ -27,6 +34,23 @@ public class PortadorJugable : PortadorGeneral
     {
         // Agregar esto para manejar la regeneración automática
         sistemaMana?.ActualizarRegeneracion(Time.deltaTime);
+        sistemaVida?.ActualizarRegeneracion(Time.deltaTime);
+    }
+
+    // Método para alternar el tipo de portador
+    public void CambiarTipoPortador()
+    {
+        if (tipoPortador == TipoPortador.Mana)
+        {
+            tipoPortador = TipoPortador.Vida;
+            Debug.Log("¡Ahora eres un portador de VIDA!");
+        }
+        else
+        {
+            tipoPortador = TipoPortador.Mana;
+            Debug.Log("¡Ahora eres un portador de MANA!");
+        }
+        ActualizarUI();
     }
 
     protected override void OnDamageReceived(int amount)

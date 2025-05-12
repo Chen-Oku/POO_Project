@@ -2,7 +2,16 @@ using UnityEngine;
 
 public class SistemaMana : SistemaEstadisticas
 {
-    public int ManaActual => base.manaActual;  // Use parent's field
+    public int ManaActual
+    {
+        get => base.manaActual;
+        set
+        {
+            base.manaActual = Mathf.Clamp(value, manaMinimo, manaMaximo);
+            OnEstadisticasCambiadas?.Invoke();
+        }
+    }
+   // public int ManaActual => base.manaActual;  // Use parent's field
     public int ManaMaximo => base.manaMaximo;  // Use parent's field
     public int ManaMinimo => base.manaMinimo;  // Use parent's field
     private int regeneracionMana = 1;
@@ -11,22 +20,18 @@ public class SistemaMana : SistemaEstadisticas
     public delegate void EstadisticasCambiadas();
     public event EstadisticasCambiadas OnEstadisticasCambiadas;
     
-/*     private void Start()
-    {
-        InicializarMana();
-        tiempoUltimaRegeneracion = Time.time;
-    }
-    
-    private void Update()
-    {
-        // Regenerar mana automáticamente a intervalos
-        if (Time.time >= tiempoUltimaRegeneracion + intervaloRegeneracion)
+    public int CostoHabilidadProyectil = 10;
+    public int CostoHabilidadCuracion = 20;
+    public int CostoHabilidadAOE = 30;
+
+    public bool ConsumirMana(int cantidad) {
+        if (ManaActual >= cantidad) 
         {
-            RecuperarMana(regeneracionMana);
-            tiempoUltimaRegeneracion = Time.time;
+            ManaActual -= cantidad;
+            return true;
         }
-    } */
-    
+        return false;
+    }
     public void InicializarMana(int max = 100, int actual = 100, int min = 0)
     {
         manaMaximo = max;
@@ -45,7 +50,7 @@ public class SistemaMana : SistemaEstadisticas
         }
     }
     
-    public void ConsumirMana(int cantidad)
+    /* public void ConsumirMana(int cantidad)
     {
         if (manaActual > manaMinimo)
         {
@@ -55,7 +60,7 @@ public class SistemaMana : SistemaEstadisticas
 
             Debug.Log($"Mana consumido: {cantidad}, Mana actual: {manaActual}");
         }
-    }
+    } */
     
     public bool TieneSuficienteMana(int cantidad)
     {
@@ -68,7 +73,7 @@ public class SistemaMana : SistemaEstadisticas
     public void RestaurarManaCompleto()
     {
         // Internal implementation that changes the private backing field
-        vidaActual = vidaMaxima;
+        manaActual = manaMaximo;
         // Notify subscribers if necessary
         OnEstadisticasCambiadas?.Invoke();
     }
