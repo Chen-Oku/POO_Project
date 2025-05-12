@@ -6,6 +6,7 @@ public class VidaUI : MonoBehaviour
 {
     [SerializeField] private Image barraVida;
     [SerializeField] private TextMeshProUGUI textoVida;
+    [SerializeField] private Slider Slider;
     
     private SistemaVida _sistemaVida;
     
@@ -52,6 +53,7 @@ public class VidaUI : MonoBehaviour
         if (barraVida != null)
         {
             barraVida.fillAmount = vidaActual / vidaMaxima;
+            Slider.value =barraVida.fillAmount;
         }
 
         // Actualizar el texto

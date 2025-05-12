@@ -6,6 +6,7 @@ public class ManaUI : MonoBehaviour
 {
     [SerializeField] private Image barraMana;
     [SerializeField] private TextMeshProUGUI textoMana;
+    [SerializeField] private Slider Slider;
     
     private SistemaMana _sistemaMana;
 
@@ -61,6 +62,7 @@ public class ManaUI : MonoBehaviour
                 // Usar ManaActual y ManaMaximo (propiedades que ya existen en tu clase)
                 float porcentaje = (float)_sistemaMana.ManaActual / _sistemaMana.ManaMaximo;
                 barraMana.fillAmount = porcentaje;
+                Slider.value = barraMana.fillAmount;
             }
             
             if (textoMana != null)
