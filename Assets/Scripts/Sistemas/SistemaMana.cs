@@ -65,6 +65,14 @@ public class SistemaMana : SistemaEstadisticas
         //return manaActual >= cantidad;
     }
 
+    public void RestaurarManaCompleto()
+    {
+        // Internal implementation that changes the private backing field
+        vidaActual = vidaMaxima;
+        // Notify subscribers if necessary
+        OnEstadisticasCambiadas?.Invoke();
+    }
+
     public void ActualizarRegeneracion(float deltaTime)
     {
         tiempoUltimaRegeneracion += deltaTime;

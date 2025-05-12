@@ -64,6 +64,7 @@ GameObject:
   - component: {fileID: 8450296457537536647}
   - component: {fileID: 7304130626744519581}
   - component: {fileID: 8533677944581227216}
+  - component: {fileID: -1697927317615841376}
   m_Layer: 0
   m_Name: IceNovaPref
   m_TagString: Untagged
@@ -140,3 +141,30 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-1697927317615841376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7302811476000486382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f90a7ac53c2e71c469cf02b88f680ce0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duracion: 2
+  escalaCurva:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  particulas: {fileID: 0}
+  "aplicaDa\xF1oContinuo": 0
+  radio: 5
+  "da\xF1o": 15
+  intervaloTick: 0.5
+  capasObjetivos:
+    serializedVersion: 2
+    m_Bits: 0

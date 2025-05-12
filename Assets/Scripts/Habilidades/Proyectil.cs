@@ -84,40 +84,41 @@ public class Proyectil : MonoBehaviour
     rb.linearVelocity = direccion * velocidad;
     }
 
-     private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
-            
-        /* 
-        // Buscar si golpeó un portador (enemigo o dummy)
-        PortadorGeneral portadorGolpeado = collision.gameObject.GetComponent<PortadorGeneral>();
-        if (portadorGolpeado != null && portadorGolpeado.sistemaVida != null)
+        // Ignorar colisión con el lanzador
+        if (collision.gameObject.TryGetComponent<PortadorJugable>(out var jugadorImpactado) && jugadorImpactado == lanzador)
         {
-            portadorGolpeado.sistemaVida.RecibirDaño(daño);
-            Debug.Log($"¡Golpeó a {collision.gameObject.name} causando {daño} de daño!");
-            
-        } */
-
-        // Si colisiona con el lanzador, destruir el proyectil y salir
-    PortadorJugable jugadorGolpeado = collision.gameObject.GetComponent<PortadorJugable>();
-    if (jugadorGolpeado == lanzador)
-    {
-        Destroy(gameObject); // Destruir el proyectil
-        return;              // Salir del método para no ejecutar el resto del código
-    }
-    
-    // Buscar si golpeó un portador (enemigo o dummy)
-    PortadorGeneral portadorGolpeado = collision.gameObject.GetComponent<PortadorGeneral>();
-    if (portadorGolpeado != null && portadorGolpeado.sistemaVida != null)
-    {
-        portadorGolpeado.sistemaVida.RecibirDaño(daño);
-        Debug.Log($"¡Golpeó a {collision.gameObject.name} causando {daño} de daño!");
-    }
+            return;
+        }
         
-        // Iniciar regreso después de golpear algo
+        IDamageTaker objetoImpactado = collision.gameObject.GetComponent<IDamageTaker>();
+        if (objetoImpactado == null)
+        {
+            // Buscar en los objetos padres por si el collider está en un hijo
+            objetoImpactado = collision.gameObject.GetComponentInParent<IDamageTaker>();
+        }
+        
+        // Aplicar daño usando la interfaz
+        if (objetoImpactado != null)
+        {
+            objetoImpactado.Damage(daño);
+            Debug.Log($"Proyectil impactó a {collision.gameObject.name} causando {daño} de daño!");
+            
+            // Crear efecto visual de impacto si tienes uno
+            // Instantiate(efectoImpacto, collision.contacts[0].point, Quaternion.identity);
+        }
+        
+        // Iniciar regreso o destrucción después de golpear algo
         if (!debeRegresar)
         {
-            rb.linearVelocity = Vector3.zero;
+            rb.linearVelocity = Vector3.zero; // Detener el proyectil
             debeRegresar = true;
+        }
+        else
+        {
+            // Si ya estaba regresando, destruirlo al impactar con cualquier cosa
+            Destroy(gameObject);
         }
     }
 }

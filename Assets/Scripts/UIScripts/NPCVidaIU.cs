@@ -2,54 +2,84 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class NPCVidaIU : MonoBehaviour
+public class NPCVidaUI : MonoBehaviour
 {
-   [SerializeField] private Image barraVida;
+    [SerializeField] private Image barraVida;
+    [SerializeField] private TextMeshProUGUI textoVida;
     [SerializeField] private Canvas canvas;
+    [SerializeField] private Slider Slider;
     
-    private PortadorNoJugable enemigo;
-    private Camera mainCamera;
+    private PortadorNoJugable portador;
     
-    public void InicializarBarra(PortadorNoJugable enemigo)
+    private Camera camara;
+    
+    private void Awake()
     {
-        this.enemigo = enemigo;
-        mainCamera = Camera.main;
+        // Asegurarse de que el canvas existe
+        if (canvas == null)
+            canvas = GetComponentInChildren<Canvas>();
         
-        // Asegurarse que el canvas mira siempre a la cámara
         if (canvas != null)
-        {
             canvas.renderMode = RenderMode.WorldSpace;
-        }
         
-        ActualizarVida();
+        // Obtenemos la referencia a la cámara principal
+        camara = Camera.main;
     }
     
-    private void Update()
+    // Método para vincular el portador con esta UI
+    public void ConfigurarConPortador(PortadorNoJugable _portador)
     {
-        // Hacer que la barra de vida siempre mire a la cámara
-        if (mainCamera != null && canvas != null)
+        portador = _portador;
+        
+        if (portador != null && portador.sistemaVida != null)
         {
-            canvas.transform.LookAt(mainCamera.transform);
-            // Invertir la rotación para que el texto sea legible
-            canvas.transform.rotation = Quaternion.LookRotation(
-                mainCamera.transform.position - canvas.transform.position);
+            // Suscribirse al evento de cambio de vida
+            portador.sistemaVida.OnVidaCambiada += ActualizarVida;
+            // Actualizar UI inicialmente
+            ActualizarVida();
         }
     }
     
+    // Actualizar la UI sin parámetros (llamado por eventos)
     public void ActualizarVida()
     {
-        if (enemigo != null && enemigo.sistemaVida != null && barraVida != null)
+        if (portador != null && portador.sistemaVida != null)
         {
-            float porcentaje = (float)enemigo.sistemaVida.VidaActual / enemigo.sistemaVida.VidaMaxima;
-            barraVida.fillAmount = porcentaje;
-            
-            // Cambiar color según la vida restante
-            if (porcentaje > 0.6f)
-                barraVida.color = Color.green;
-            else if (porcentaje > 0.3f)
-                barraVida.color = Color.yellow;
-            else
-                barraVida.color = Color.red;
+            ActualizarVida(portador.sistemaVida.VidaActual, portador.sistemaVida.VidaMaxima);
+        }
+    }
+    
+    // Actualizar la UI con valores específicos
+    public void ActualizarVida(float vidaActual, float vidaMaxima)
+    {
+        if (barraVida != null)
+        {
+            float ratio = Mathf.Clamp01(vidaActual / vidaMaxima);
+            barraVida.fillAmount = ratio;
+            Slider.value = barraVida.fillAmount;
+        }
+        
+        if (textoVida != null)
+        {
+            textoVida.text = $"{vidaActual}/{vidaMaxima}";
+        }
+    }
+    
+    private void LateUpdate()
+    {
+        // Hacer que la barra de vida siempre mire a la cámara
+        if (camara != null && canvas != null)
+        {
+            canvas.transform.LookAt(camara.transform);
+        }
+    }
+    
+    private void OnDestroy()
+    {
+        // Desuscribirse de eventos
+        if (portador != null && portador.sistemaVida != null)
+        {
+            portador.sistemaVida.OnVidaCambiada -= ActualizarVida;
         }
     }
 }

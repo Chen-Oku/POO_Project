@@ -17,9 +17,9 @@ MonoBehaviour:
   cooldown: 3
   tipoDeHabilidad: 2
   radio: 5
-  "da\xF1o": 5
-  cooldownTiempo: 2
+  "da\xF1o": 20
   efectoAOE: {fileID: 7302811476000486382, guid: 011ab9bac98b5c840a013072147e4c0d, type: 3}
   capasObjetivos:
     serializedVersion: 2
     m_Bits: 128
+  costoDeMana: 30

@@ -59,6 +59,13 @@ public class SistemaVida : SistemaEstadisticas
         else if (cantidad < 0)
             RecibirDaño(-cantidad); // Convertir a positivo
     }
+    public void RestaurarVidaCompleta()
+    {
+        // Internal implementation that changes the private backing field
+        vidaActual = vidaMaxima;
+        // Notify subscribers if necessary
+        OnVidaCambiada?.Invoke();
+    }
     
     private void NotificarCambios()
     {

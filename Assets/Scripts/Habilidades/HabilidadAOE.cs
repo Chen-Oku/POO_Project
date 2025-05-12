@@ -3,23 +3,22 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NuevaHabilidadAOE", menuName = "Scriptable Objects/Habilidad AOE")]
 public class HabilidadAOE : HabilidadBase
 {
+    [Header("Configuración de Efecto")]
     public float radio = 5f;
     public int daño = 15;
-    [SerializeField] private int costoDeMana = 30; // Nuevo campo serializado
-    public GameObject efectoAOE; // Efecto visual del AOE
+    public GameObject efectoAOE; // Prefab del IceNova
     public LayerMask capasObjetivos; // Para filtrar qué objetos son afectados
+    
+    [Header("Configuración de Recursos")]
+    [SerializeField] private int costoDeMana = 30;
     
     public override void Usar(PortadorJugable portador)
     {
-        base.costoMana = 20;
-        cooldown = 3f; // Accedes directamente a la variable de la clase base
-
-        // Asegúrate de que estás modificando la instancia correcta
-        Debug.Log($"ID de la habilidad: {this.GetHashCode()}");
-        base.costoMana = costoDeMana; // Asignar el costo de mana
+        // Configurar valores base
+        base.costoMana = costoDeMana;
+        cooldown = 3f;
         
-        Debug.Log($"Costo de maná de la habilidad: {costoMana}");
-        
+        // Verificar cooldown
         if (Time.time - ultimoUso < cooldown)
         {
             Debug.Log("Habilidad en cooldown, espera un momento.");
@@ -27,9 +26,6 @@ public class HabilidadAOE : HabilidadBase
         }
         
         if (portador == null) return;
-        
-        Debug.Log($"Sistema de maná nulo?: {portador.sistemaMana == null}");
-        Debug.Log($"ID del sistema de maná: {portador.sistemaMana.GetHashCode()}");
         
         // Verificar si hay suficiente mana antes de usar la habilidad
         if (portador.sistemaMana != null && !portador.sistemaMana.TieneSuficienteMana(costoMana))
@@ -44,43 +40,82 @@ public class HabilidadAOE : HabilidadBase
             portador.sistemaMana.ConsumirMana(costoMana);
             Debug.Log($"Has consumido {costoMana} puntos de maná. Maná restante: {portador.sistemaMana.ManaActual}");
             
-            // Fuerza una actualización de la UI directamente
-            ManaUI manaUI = FindAnyObjectByType<ManaUI>();
+            // Actualizar UI de maná
+            ManaUI manaUI = Object.FindAnyObjectByType<ManaUI>();
             if (manaUI != null)
             {
-                manaUI.ActualizarUIMana(); // Asegúrate de que este método sea público
+                manaUI.ActualizarUIMana();
             }
         }
+        
+        // Determinar posición para el efecto (ligeramente adelante del jugador)
+        Vector3 posicion = portador.transform.position + portador.transform.forward * 2f;
         
         // Mostrar efecto visual
         if (efectoAOE != null)
         {
-            GameObject efecto = Instantiate(efectoAOE, portador.transform.position, Quaternion.identity);
-            //efecto.transform.localScale = new Vector3(radio * 2, radio * 2, radio * 2);
-            Destroy(efecto, 2f);
+            GameObject efecto = Instantiate(efectoAOE, posicion, Quaternion.identity);
+            IceNovaEffect iceNova = efecto.GetComponent<IceNovaEffect>();
+            if (iceNova != null)
+            {
+                iceNova.Inicializar(daño, radio, capasObjetivos, portador);
+                Debug.Log($"IceNova inicializado con daño={daño}, radio={radio}");
+            }
+            else
+            {
+                // Si no tiene el componente, aplicar daño directamente como backup
+                Debug.LogWarning("El prefab no tiene componente IceNovaEffect. Aplicando daño directamente.");
+                AplicarDañoDirectamente(posicion);
+            }
+        }
+        else
+        {
+            // Si no hay prefab, aplicar daño directamente
+            Debug.LogWarning("No hay prefab de efecto asignado. Aplicando daño directamente.");
+            AplicarDañoDirectamente(posicion);
         }
         
-        // Detectar enemigos en el área
-        Collider[] objetivos = Physics.OverlapSphere(portador.transform.position, radio, capasObjetivos);
+        // Registrar el último uso para el cooldown
+        ultimoUso = Time.time;
+        
+    }
+    
+    // Método de respaldo por si falla el prefab
+    private void AplicarDañoDirectamente(Vector3 posicion)
+    {
+        Collider[] objetivos = Physics.OverlapSphere(posicion, radio, capasObjetivos);
         
         int objetivosGolpeados = 0;
         foreach (var objetivo in objetivos)
         {
-            // No dañar al portador
-            if (objetivo.gameObject == portador.gameObject)
+            // No dañar al jugador
+            if (objetivo.GetComponent<PortadorJugable>() != null)
                 continue;
             
-            // Buscar si tiene un PortadorGeneral con sistemaVida
-            PortadorGeneral portadorGolpeado = objetivo.GetComponent<PortadorGeneral>();
-            if (portadorGolpeado != null && portadorGolpeado.sistemaVida != null)
+            // Método 1: Usar la interfaz IDamageTaker
+            IDamageTaker damageTaker = objetivo.GetComponent<IDamageTaker>();
+            if (damageTaker == null)
+                damageTaker = objetivo.GetComponentInParent<IDamageTaker>();
+            
+            if (damageTaker != null)
             {
-                portadorGolpeado.sistemaVida.RecibirDaño(daño);
+                damageTaker.Damage(daño);
+                objetivosGolpeados++;
+                continue;
+            }
+            
+            // Método 2: Alternativa usando PortadorGeneral directamente
+            PortadorGeneral portadorGolpeado = objetivo.GetComponent<PortadorGeneral>();
+            if (portadorGolpeado == null)
+                portadorGolpeado = objetivo.GetComponentInParent<PortadorGeneral>();
+            
+            if (portadorGolpeado != null)
+            {
+                portadorGolpeado.Damage(daño);
                 objetivosGolpeados++;
             }
         }
         
-        Debug.Log($"Habilidad AOE afectó a {objetivosGolpeados} objetivos por {daño} de daño cada uno.");
-        
-        ultimoUso = Time.time;
-    }   
+        Debug.Log($"Habilidad AOE aplicó daño directo a {objetivosGolpeados} objetivos por {daño} de daño cada uno");
+    }
 }
