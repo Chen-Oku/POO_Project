@@ -17,7 +17,6 @@ public class ManaUI : MonoBehaviour
     {
         if (FindAnyObjectByType<PortadorJugable>() != null)
         {
-            Debug.Log($"ID del sistema de maná en UI: {FindAnyObjectByType<PortadorJugable>().sistemaMana.GetHashCode()}");
         }
         // Buscar el portador primero
         PortadorJugable portadorJugable = FindAnyObjectByType<PortadorJugable>();
@@ -31,16 +30,8 @@ public class ManaUI : MonoBehaviour
                 // Suscribirse al evento de cambio de estadísticas
                 _sistemaMana.OnEstadisticasCambiadas += ActualizarUIMana;
                 ActualizarUIMana(); // Actualizar UI al inicio
-                Debug.Log("ManaUI conectado exitosamente con SistemaMana");
+
             }
-            else
-            {
-                Debug.LogError("No se encontró el SistemaMana en el portador");
-            }
-        }
-        else
-        {
-            Debug.LogError("No se encontró el PortadorJugable en la escena");
         }
     }
     

@@ -103,7 +103,7 @@ public class Proyectil : MonoBehaviour
         if (objetoImpactado != null)
         {
             objetoImpactado.Damage(daño);
-            Debug.Log($"Proyectil impactó a {collision.gameObject.name} causando {daño} de daño!");
+            //Debug.Log($"Proyectil impactó a {collision.gameObject.name} causando {daño} de daño!");
             
             // Crear efecto visual de impacto si tienes uno
             // Instantiate(efectoImpacto, collision.contacts[0].point, Quaternion.identity);

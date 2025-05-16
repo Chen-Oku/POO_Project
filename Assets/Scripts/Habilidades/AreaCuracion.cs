@@ -89,10 +89,6 @@ public class AreaCuracion : MonoBehaviour
                 {
                     Debug.Log($"El propietario {propietario.name} ha recibido {cantidadCuracionPorTick} de curación.");
                 }
-                else
-                {
-                    Debug.Log($"Aliado {portador.name} ha recibido {cantidadCuracionPorTick} de curación.");
-                }
             }
         }
     }

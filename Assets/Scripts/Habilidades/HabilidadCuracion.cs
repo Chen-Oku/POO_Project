@@ -85,7 +85,7 @@ public class HabilidadCuracion : HabilidadBase
             if (portador.sistemaVida != null)
             {
                 portador.sistemaVida.Curar(cantidadCuracion);
-                Debug.Log($"{portador.name} se ha curado {cantidadCuracion} puntos de vida.");
+                //Debug.Log($"{portador.name} se ha curado {cantidadCuracion} puntos de vida.");
             }
         }
             

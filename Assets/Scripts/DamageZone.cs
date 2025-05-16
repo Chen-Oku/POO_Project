@@ -18,16 +18,13 @@ public class DamageZone : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             GameObject player = other.gameObject;
-            Debug.Log($"Jugador detectado: {player.name}");
             
             // Buscar directamente el PortadorGeneral o derivados
             portadorJugador = player.GetComponent<PortadorGeneral>();
-            Debug.Log($"¿Encontrado PortadorGeneral en el objeto principal? {portadorJugador != null}");
             
             if (portadorJugador == null)
             {
                 portadorJugador = player.GetComponentInChildren<PortadorGeneral>();
-                Debug.Log($"¿Encontrado PortadorGeneral en hijos? {portadorJugador != null}");
             }
         }
     }
@@ -56,7 +53,6 @@ public class DamageZone : MonoBehaviour
                 if (portadorJugador != null)
                 {
                     portadorJugador.Damage(damageAmount);
-                    Debug.Log($"Aplicando daño de {damageAmount} directamente al PortadorGeneral");
                 }
                 timeSinceLastDamage = 0f;
             }
@@ -78,8 +74,8 @@ public class DamageZone : MonoBehaviour
             damageTaker.Damage(damageAmount);
             return;
         }
-        
-        // Fallback: buscar directamente un PortadorGeneral si no encontramos IDamageTaker
+
+        // buscar directamente un PortadorGeneral si no encontramos IDamageTaker
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
         if (playerObject != null)
         {
@@ -92,31 +88,11 @@ public class DamageZone : MonoBehaviour
             if (portador != null)
             {
                 portador.Damage(damageAmount);
-                Debug.Log($"Aplicando daño de {damageAmount} directamente al PortadorGeneral");
+                //Debug.Log($"Aplicando daño de {damageAmount} directamente al PortadorGeneral");
             }
             else
             {
-                Debug.LogWarning("No se pudo encontrar un PortadorGeneral en el jugador");
-            }
-        }
-    }
-    
-    // Para visualizar la zona en el editor
-    private void OnDrawGizmos()
-    {
-        Collider col = GetComponent<Collider>();
-        if (col != null)
-        {
-            Gizmos.color = new Color(1f, 0f, 0f, 0.3f); // Rojo semi-transparente
-            
-            if (col is BoxCollider boxCollider)
-            {
-                Gizmos.matrix = transform.localToWorldMatrix;
-                Gizmos.DrawCube(boxCollider.center, boxCollider.size);
-            }
-            else if (col is SphereCollider sphereCollider)
-            {
-                Gizmos.DrawSphere(transform.position + sphereCollider.center, sphereCollider.radius);
+                //Debug.LogWarning("No se pudo encontrar un PortadorGeneral en el jugador");
             }
         }
     }

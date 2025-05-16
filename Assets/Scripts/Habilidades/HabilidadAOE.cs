@@ -46,21 +46,7 @@ public class HabilidadAOE : HabilidadBase
         {
             recursoConsumido = portador.sistemaVida.ConsumirVida(portador.sistemaVida.CostoHabilidadAOE);
         }
-        
-        /* // Consumir mana primero
-        if (portador.sistemaMana != null)
-        {
-            portador.sistemaMana.ConsumirMana(costoMana);
-            Debug.Log($"Has consumido {costoMana} puntos de maná. Maná restante: {portador.sistemaMana.ManaActual}");
-            
-            // Actualizar UI de maná
-            ManaUI manaUI = Object.FindAnyObjectByType<ManaUI>();
-            if (manaUI != null)
-            {
-                manaUI.ActualizarUIMana();
-            }
-        } */
-        
+                
         // Determinar posición para el efecto (ligeramente adelante del jugador)
         Vector3 posicion = portador.transform.position + portador.transform.forward * 2f;
         
@@ -72,7 +58,7 @@ public class HabilidadAOE : HabilidadBase
             if (iceNova != null)
             {
                 iceNova.Inicializar(daño, radio, capasObjetivos, portador);
-                Debug.Log($"IceNova inicializado con daño={daño}, radio={radio}");
+                //Debug.Log($"IceNova inicializado con daño={daño}, radio={radio}");
             }
             else
             {
@@ -129,6 +115,6 @@ public class HabilidadAOE : HabilidadBase
             }
         }
         
-        Debug.Log($"Habilidad AOE aplicó daño directo a {objetivosGolpeados} objetivos por {daño} de daño cada uno");
+        //Debug.Log($"Habilidad AOE aplicó daño directo a {objetivosGolpeados} objetivos por {daño} de daño cada uno");
     }
 }

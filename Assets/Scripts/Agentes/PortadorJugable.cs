@@ -57,7 +57,6 @@ public class PortadorJugable : PortadorGeneral
     {
         base.OnDamageReceived(amount);
         ActualizarUI();
-        Debug.Log($"Jugador recibió {amount} de daño. Vida actual: {sistemaVida.VidaActual}");
 
         // Comprobar si ha muerto
         if (sistemaVida.VidaActual <= 0)
@@ -106,7 +105,6 @@ public class PortadorJugable : PortadorGeneral
         }
         else
         {
-            Debug.LogWarning("No se encontró un punto de spawn para el jugador.");
             return;
         }
         
@@ -159,7 +157,7 @@ public class PortadorJugable : PortadorGeneral
     {
        base.OnHealReceived(amount);
         ActualizarUI();
-        Debug.Log($"Jugador recibió {amount} de curación. Vida actual: {sistemaVida.VidaActual}");
+        //Debug.Log($"Jugador recibió {amount} de curación. Vida actual: {sistemaVida.VidaActual}");
     }
     //==================//
 
@@ -180,13 +178,11 @@ public class PortadorJugable : PortadorGeneral
                 nuevoPunto.transform.SetParent(transform);
                 nuevoPunto.transform.localPosition = Vector3.zero; // Puedes ajustar la posición
                 puntoDisparo = nuevoPunto.transform;
-                Debug.LogWarning("No se encontró un hijo llamado 'PuntoDisparo'. Se creó uno automáticamente en la posición local (0,0,0).");
+                //Debug.LogWarning("No se encontró un hijo llamado 'PuntoDisparo'. Se creó uno automáticamente en la posición local (0,0,0).");
             }
         }
 
-        // Inicializa las estadísticas si no están configuradas
-
-        // Crear una instancia de SistemaVida
+            // Crear una instancia de SistemaVida
         SistemaVida sistemaVida = new SistemaVida
         {
             vidaActual = 100,
@@ -194,18 +190,16 @@ public class PortadorJugable : PortadorGeneral
             vidaMinima = 0
         };
 
-         // Modificar valores
+        /*  // Modificar valores
         sistemaVida.RecibirDaño(20);
-        sistemaVida.Curar(10);
-
-        Debug.Log($"Vida actual: {sistemaVida.VidaActual}");
-
+        sistemaVida.Curar(10); 
+ */
         
         // Inicializa el sistema de habilidades
         if (sistemaHabilidades == null)
         {
             sistemaHabilidades = gameObject.AddComponent<SistemaHabilidades>();
-            Debug.Log("Se ha creado automáticamente un sistema de habilidades");
+            //Debug.Log("Se ha creado automáticamente un sistema de habilidades");
         }
     }
     private void ActualizarUI()

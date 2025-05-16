@@ -7,7 +7,7 @@ public class SistemaVida : SistemaEstadisticas
         get => vidaActual;
         set
         {
-            vidaActual = Mathf.Clamp(value, vidaMinima, vidaMaxima);
+            vidaActual = Mathf.Clamp(value, vidaMinima, vidaMaxima); 
             OnVidaCambiada?.Invoke();
         }
     }

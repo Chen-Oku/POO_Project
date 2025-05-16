@@ -10,7 +10,7 @@ public class BotonHabilidad : MonoBehaviour
     public Image iconoHabilidad;
     private float cooldownTimer = 0f;
     private bool isCooldown = false;
-    public Key teclaHabilidad1 = Key.Digit1; // Por defecto la tecla 1
+    public Key teclaHabilidad1 = Key.Digit1; 
     public HabilidadBase habilidad; // O HabilidadProyectil si solo usas proyectiles
     private PortadorJugable portadorJugable;
 
@@ -37,7 +37,7 @@ public class BotonHabilidad : MonoBehaviour
             iconoHabilidad.fillAmount = 1;
             if (textoCooldown != null)
                 textoCooldown.text = habilidad.cooldown.ToString("F1");
-            // Aquí pasas el jugador a la habilidad
+            // Usar la habilidad
             if (portadorJugable != null)
                 habilidad.Usar(portadorJugable);
             else

@@ -18,9 +18,7 @@ public class ManaRecovery : MonoBehaviour
             {
                 // Usar RecuperarMana en lugar de ModificarValor
                 jugador.sistemaMana.RecuperarMana(cantidadRecuperacion);
-                tiempoUltimaRecuperacion = Time.time;
-
-                Debug.Log($"Maná recuperado: {cantidadRecuperacion}. Maná actual: {jugador.sistemaMana.ManaActual}");
+                tiempoUltimaRecuperacion = Time.time;   
             }
         }
     }

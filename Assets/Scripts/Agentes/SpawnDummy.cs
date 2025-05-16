@@ -60,12 +60,12 @@ public class SpawnDummy : MonoBehaviour
     IEnumerator SpawnDummyRoutine()
     {
         isSpawning = true;
-        Debug.Log("GolemBoss Spawn Start method called."); // Mensaje de depuración
+        Debug.Log($"TrainingDummy Spawning in {respawnDelay} seconds."); // Mensaje de depuración
 
         // Esperar el tiempo de respawn
         yield return new WaitForSeconds(respawnDelay);
 
-        // Spawnear el GolemBoss
+        // Spawnear el dummy
         currentDummy = Instantiate(_dummyPrefab, spawnPoint.position, spawnPoint.rotation);
 
         isSpawning = false;

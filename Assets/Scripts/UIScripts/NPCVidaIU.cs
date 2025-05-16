@@ -15,7 +15,7 @@ public class NPCVidaUI : MonoBehaviour
     
     private void Awake()
     {
-        // Asegurarse de que el canvas existe
+        // Asegurar de que el canvas existe
         if (canvas == null)
             canvas = GetComponentInChildren<Canvas>();
         
@@ -40,7 +40,7 @@ public class NPCVidaUI : MonoBehaviour
         }
     }
     
-    // Actualizar la UI sin parámetros (llamado por eventos)
+
     public void ActualizarVida()
     {
         if (portador != null && portador.sistemaVida != null)

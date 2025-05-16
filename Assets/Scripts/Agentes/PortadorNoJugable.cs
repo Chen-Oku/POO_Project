@@ -54,7 +54,7 @@ public class PortadorNoJugable : PortadorGeneral
             barraVidaNPC.ActualizarVida(sistemaVida.VidaActual, sistemaVida.VidaMaxima);
         }
         
-        Debug.Log($"Enemigo {gameObject.name} recibió {amount} de daño. Vida restante: {sistemaVida.VidaActual}");
+        //Debug.Log($"Enemigo {gameObject.name} recibió {amount} de daño. Vida restante: {sistemaVida.VidaActual}");
             
         // Comprobar si ha muerto
         if (sistemaVida.VidaActual <= 0)
@@ -63,7 +63,7 @@ public class PortadorNoJugable : PortadorGeneral
         }
     }
     
-    protected override void OnHealReceived(int amount)
+/*     protected override void OnHealReceived(int amount)
     {
         base.OnHealReceived(amount);
         
@@ -71,7 +71,7 @@ public class PortadorNoJugable : PortadorGeneral
         ActualizarUI();
         
         Debug.Log($"Enemigo {name} fue curado por {amount}. Vida actual: {sistemaVida.VidaActual}");
-    }
+    } */
     
     private void ActualizarUI()
     {
@@ -110,8 +110,7 @@ public class PortadorNoJugable : PortadorGeneral
         }
         else
         {
-            // Si no hay animador, hacer algún efecto simple
-            // Por ejemplo, hacer que el objeto caiga o se desvanezca
+
             Transform modelTransform = transform.Find("Model");
             if (modelTransform != null)
             {
